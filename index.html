@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>شرح المثال الخامس — العطف</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg1:#eaf6ff;--bg2:#b9e0ff;--bg3:#5aa2ff;--ink:#0a2548;--soft:#35557f;--glass:rgba(255,255,255,.5);--edge:rgba(255,255,255,.85);--shadow:rgba(30,100,220,.22);
+--acc:#1f6fe5;--sky:#22b8f0;--c1:#0ea5e9;--c2:#3b6ff0;--c3:#f59e0b;--c4:#10b9a6;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg1:#050f24;--bg2:#0a2a5c;--bg3:#1b55b8;--ink:#eaf4ff;--soft:#b3d0f5;--glass:rgba(255,255,255,.09);--edge:rgba(255,255,255,.22);--shadow:rgba(0,0,0,.45);--c1:#38c8ff;--c2:#7b9bff;--c3:#fbbf24;--c4:#34d8c2}}
+:root[data-theme="dark"]{--bg1:#050f24;--bg2:#0a2a5c;--bg3:#1b55b8;--ink:#eaf4ff;--soft:#b3d0f5;--glass:rgba(255,255,255,.09);--edge:rgba(255,255,255,.22);--shadow:rgba(0,0,0,.45);--c1:#38c8ff;--c2:#7b9bff;--c3:#fbbf24;--c4:#34d8c2}
+html{scroll-padding-top:env(safe-area-inset-top,0px);scroll-behavior:smooth}
+*{box-sizing:border-box}
+body{margin:0;font-family:Amiri,'Traditional Arabic',serif;font-size:1.15rem;color:var(--ink);line-height:1.95;min-height:100vh;overflow-x:hidden;background:linear-gradient(135deg,var(--bg1),var(--bg2),var(--bg3),var(--bg2));background-size:300% 300%;background-attachment:fixed}
+@keyframes bg{50%{background-position:100% 100%}}
+body::before{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;background-image:radial-gradient(var(--edge) 1px,transparent 1px);background-size:34px 34px;opacity:.35}
+.orb{position:fixed;border-radius:50%;filter:blur(70px);opacity:.5;z-index:0}
+.o1{width:320px;height:320px;background:var(--c1);top:-70px;left:-70px}
+.o2{width:380px;height:380px;background:var(--c2);bottom:-110px;right:-90px;animation-delay:-6s}
+.o3{width:220px;height:220px;background:var(--c4);top:45%;left:30%;opacity:.25;animation-delay:-3s}
+@keyframes float{50%{transform:translate(30px,40px) scale(1.1)}}
+#bar{position:fixed;top:0;right:0;height:4px;width:0;z-index:50;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c3));padding-top:0}
+#theme{position:fixed;top:calc(env(safe-area-inset-top,0px) + 14px);left:14px;z-index:40;width:44px;height:44px;border-radius:50%;border:1px solid var(--edge);background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);cursor:pointer;color:var(--ink);display:grid;place-items:center}
+main{position:relative;z-index:1;max-width:1000px;margin:auto;padding:30px 16px 70px}
+.glass{position:relative;background:var(--glass);border:1px solid var(--edge);border-radius:26px;backdrop-filter:blur(20px) saturate(170%);-webkit-backdrop-filter:blur(20px) saturate(170%);box-shadow:0 14px 44px var(--shadow),inset 0 1px 0 var(--edge);overflow:hidden}
+.glass::after{content:"";position:absolute;inset:0;pointer-events:none;background:radial-gradient(260px circle at var(--mx,50%) var(--my,-40%),rgba(255,255,255,.35),transparent 60%)}
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s,transform .8s}
+.rv.in{opacity:1;transform:none}
+.hero{text-align:center;padding:40px 18px 34px}
+.tag{display:inline-block;padding:2px 18px;border-radius:99px;background:linear-gradient(90deg,var(--acc),var(--sky));color:#fff;font-weight:700;font-size:.95rem;box-shadow:0 6px 18px var(--shadow)}
+h1{font-size:clamp(1.8rem,6vw,3rem);margin:12px 0 4px;background:linear-gradient(90deg,var(--c1),var(--c2),var(--c4));-webkit-background-clip:text;background-clip:text;color:transparent}
+.sentence{font-size:clamp(1.5rem,5.4vw,2.7rem);font-weight:700;margin:10px 0 6px}
+.w{cursor:pointer;padding:0 8px;border-radius:12px;transition:.3s}
+.w[data-k=a]{color:var(--c1)}.w[data-k=b]{color:var(--c2)}.w[data-k=c]{color:var(--c3)}.w[data-k=d]{color:var(--c4)}
+.w:hover{background:var(--glass);transform:translateY(-3px);display:inline-block}
+.legend{display:flex;flex-wrap:wrap;justify-content:center;gap:8px 16px;font-size:.95rem;color:var(--soft)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:50%;margin-left:5px;vertical-align:middle}
+h2{font-size:1.5rem;margin:44px 6px 8px;display:flex;align-items:center;gap:10px}
+h2::before{content:"";width:10px;height:30px;border-radius:6px;background:linear-gradient(var(--c1),var(--c2))}
+.hint{color:var(--soft);margin:0 6px 14px;font-size:1rem}
+.flow{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:10px;padding:26px 12px 26px}
+.node{--c:var(--c1);cursor:pointer;border:2px solid transparent;background:var(--glass);color:var(--ink);font:inherit;font-weight:700;font-size:1.3rem;padding:12px 22px;border-radius:20px;backdrop-filter:blur(10px);transition:.3s;text-align:center;box-shadow:0 6px 18px var(--shadow)}
+.node small{display:block;font-size:.8rem;color:var(--soft);font-weight:400}
+.node[data-k=b]{--c:var(--c2)}.node[data-k=c]{--c:var(--c3)}.node[data-k=d]{--c:var(--c4)}
+.node:hover{transform:translateY(-4px)}
+.node.on{border-color:var(--c);background:linear-gradient(135deg,color-mix(in srgb,var(--c) 85%,#fff),var(--c));color:#fff;transform:translateY(-5px) scale(1.05);box-shadow:0 0 0 6px color-mix(in srgb,var(--c) 25%,transparent),0 12px 28px var(--shadow)}
+.node.on small{color:#fff}
+.arrow{font-size:1.7rem;color:var(--acc);animation:pulse 1.6s infinite}
+@keyframes pulse{50%{transform:translateX(-7px);opacity:.45}}
+.ctl{display:flex;justify-content:center;gap:10px;padding:10px 12px 18px;flex-wrap:wrap}
+.btn{font:inherit;font-size:1rem;cursor:pointer;border:1px solid var(--edge);background:var(--glass);color:var(--ink);padding:6px 20px;border-radius:99px;transition:.25s}
+.btn:hover{background:linear-gradient(90deg,var(--acc),var(--sky));color:#fff}
+.detail{margin:6px 18px 20px;padding:18px 22px;min-height:100px;border-right:6px solid var(--dc,var(--c1))}
+.detail h3{margin:0 0 2px;color:var(--dc,var(--c1));font-size:1.3rem}
+.steps{position:relative;display:grid;gap:18px;padding-right:38px;margin-top:10px}
+.steps::before{content:"";position:absolute;right:15px;top:10px;bottom:10px;width:4px;border-radius:4px;background:linear-gradient(var(--c1),var(--c2),var(--c3),var(--c4))}
+.step{padding:16px 22px;transition:transform .3s}
+.step:hover{transform:translateX(-6px)}
+.step::before{content:attr(data-n);position:absolute;right:-38px;top:16px;width:32px;height:32px;border-radius:50%;background:var(--sc);color:#fff;display:grid;place-items:center;font-weight:700;z-index:2;box-shadow:0 0 0 5px var(--glass)}
+.step h3{margin:0;font-size:1.2rem;color:var(--sc)}
+.step p{margin:2px 0 0;color:var(--ink)}
+.ex{color:var(--soft);font-size:.92em}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));gap:16px}
+.i{padding:18px 20px;border-top:4px solid var(--ic)}
+.i b{color:var(--ic);font-size:1.3rem}
+.quiz{padding:24px 20px}
+.q{font-size:1.25rem;font-weight:700;margin:0 0 12px}
+.opts{display:grid;gap:10px}
+.opt{font:inherit;text-align:right;cursor:pointer;padding:10px 18px;border-radius:16px;border:1px solid var(--edge);background:var(--glass);color:var(--ink);transition:.25s}
+.opt:hover:not(:disabled){transform:translateX(-5px);border-color:var(--c1)}
+.opt.ok{background:linear-gradient(90deg,#0f9d73,#34d8a8);color:#fff}
+.opt.no{background:linear-gradient(90deg,#d6455d,#f08a9a);color:#fff}
+.meter{height:8px;border-radius:8px;background:var(--glass);margin-bottom:16px;overflow:hidden}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--c1),var(--c4));transition:width .5s}
+.fb{min-height:30px;margin-top:10px;color:var(--soft)}
+.sum{text-align:center;padding:30px 18px;margin-top:40px;background:linear-gradient(135deg,color-mix(in srgb,var(--c1) 22%,var(--glass)),var(--glass))}
+.sum p{margin:6px 0;font-size:1.25rem}
+.sum b{color:var(--c3)}
+footer{text-align:center;margin-top:28px;color:var(--soft)}
+@media (max-width:560px){.arrow{transform:rotate(-90deg);width:100%;text-align:center;animation:none}.steps{padding-right:34px}}
+html{scrollbar-width:none}
+html::-webkit-scrollbar,body::-webkit-scrollbar{width:0;height:0;display:none}
+#sb{position:fixed;right:6px;top:calc(env(safe-area-inset-top,0px) + 14px);bottom:14px;width:10px;z-index:60;border-radius:10px;background:var(--glass);border:1px solid var(--edge);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);transition:width .2s,opacity .3s;opacity:.75}
+#sb:hover,#sb.drag{width:14px;opacity:1}
+#sbt{position:absolute;top:0;left:0;right:0;border-radius:10px;background:linear-gradient(var(--c1),var(--c2));box-shadow:0 2px 10px var(--shadow);cursor:grab;touch-action:none}
+#sb.drag #sbt{cursor:grabbing}
+.ans{filter:blur(9px);cursor:pointer;user-select:none;transition:filter .45s}
+.ans.open{filter:none;cursor:auto;user-select:text}
+.tap{display:block;margin-top:6px;color:var(--soft);font-size:.9rem}
+.ans.open+.tap{display:none}
+.w.on{background:var(--glass);box-shadow:0 0 0 2px currentColor;display:inline-block;transform:translateY(-3px)}
+:focus-visible{outline:3px solid var(--c1);outline-offset:3px;border-radius:12px}
+#tools{position:fixed;top:calc(env(safe-area-inset-top,0px) + 70px);left:14px;z-index:40;display:grid;gap:8px}
+#tools button{width:44px;height:44px;border-radius:50%;border:1px solid var(--edge);background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);color:var(--ink);font:700 1rem Amiri,serif;cursor:pointer;transition:.2s}
+#tools button:hover{background:linear-gradient(135deg,var(--acc),var(--sky));color:#fff}
+#help{position:fixed;left:70px;top:calc(env(safe-area-inset-top,0px) + 70px);z-index:45;padding:14px 18px;max-width:320px;font-size:1rem;line-height:2}
+kbd{background:var(--glass);border:1px solid var(--edge);border-radius:8px;padding:0 8px;font-family:inherit;font-weight:700}
+.fs #theme,.fs #tools,.fs #help{display:none}
+.hero .detail{margin:8px 0 0;text-align:right}
+.hero .hint{margin:16px 0 0}
+.fs main{max-width:1500px;padding:20px 40px}
+.fs .hero{min-height:82vh;display:flex;flex-direction:column;justify-content:center;padding:26px 40px}
+.fs .tag{font-size:1.1rem;align-self:center}
+.fs h1{font-size:clamp(2rem,4vw,3.2rem)}
+.fs .sentence{font-size:clamp(2.2rem,5.4vw,4.2rem);margin:12px 0}
+.fs .legend{font-size:1.2rem}
+.fs .hint{font-size:1.15rem}
+.fs .hero .detail{font-size:1.45rem;padding:20px 30px;min-height:130px}
+.fs .detail h3{font-size:1.8rem}
+.fs .i{font-size:1.3rem}
+.fs .i b{font-size:1.6rem}
+.fs .grid{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.ic{width:1em;height:1em;vertical-align:-.12em;margin-left:6px}
+footer b{display:block;font-size:1.1rem;color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+<div id="bar"></div><div id="sb"><div id="sbt"></div></div><button id="theme" aria-label="تبديل المظهر"></button>
+<div id="tools"><button id="hp" aria-label="الاختصارات">؟</button></div>
+<div id="help" class="glass" hidden><div><kbd>←</kbd> <kbd>→</kbd> الكلمة التالية / السابقة</div><div><kbd>مسافة</kbd> إظهار الإجابة ثم الكلمة التالية</div><div><kbd>1</kbd> – <kbd>4</kbd> الانتقال إلى كلمة</div><div><kbd>F</kbd> أو <kbd>ب</kbd> ملء الشاشة</div></div>
+<div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+<main>
+<section class="glass hero rv">
+<span class="tag">درس العطف · ص ٢٨ · المثال ٥</span>
+<h1>شرح المثال الخامس</h1>
+<div class="sentence">«<span class="w" data-k="a">لا تُصاحِبِ</span> <span class="w" data-k="b">المُهْمِلينَ</span>، <span class="w" data-k="c">بَلِ</span> <span class="w" data-k="d">المُجْتَهِدينَ</span>»</div>
+<div class="legend"><span><i style="background:var(--c1)"></i>النهي</span><span><i style="background:var(--c2)"></i>المعطوف عليه</span><span><i style="background:var(--c3)"></i>حرف العطف</span><span><i style="background:var(--c4)"></i>المعطوف</span></div>
+<p class="hint">اضغط على أي كلمة أو مرّر المؤشر فوقها.</p>
+<div class="detail glass" id="d"></div>
+</section>
+
+<h2 class="rv">الإعراب</h2>
+<p class="hint rv"><span class="ex">؛ هذا القسم زيادة على الكتاب، وليس مطلوباً.</span></p>
+<div class="grid">
+<div class="glass i rv" style="--ic:var(--c1)"><b>لا</b><br>حرف نهي وجزم مبني على السكون، لا محل له من الإعراب.</div>
+<div class="glass i rv" style="--ic:var(--c1)"><b>تُصاحِبِ</b><br>فعل مضارع مجزوم بـ (لا) الناهية، وعلامة جزمه السكون، وحُرِّك بالكسر منعاً لالتقاء الساكنين (سكون آخره، وسكون لام التعريف بعده)، والفاعل ضمير مستتر وجوباً تقديره (أنت).</div>
+<div class="glass i rv" style="--ic:var(--c2)"><b>المُهْمِلينَ</b><br>مفعول به منصوب، وعلامة نصبه الياء لأنه جمع مذكر سالم.</div>
+<div class="glass i rv" style="--ic:var(--c3)"><b>بَلِ</b><br>حرف عطف مبني على السكون، لا محل له من الإعراب، وحُرِّك بالكسر منعاً لالتقاء الساكنين (سكون آخره، وسكون لام التعريف بعده).</div>
+<div class="glass i rv" style="--ic:var(--c4)"><b>المُجْتَهِدينَ</b><br>اسم معطوف على (المُهْمِلينَ) منصوب مثله، وعلامة نصبه الياء لأنه جمع مذكر سالم.</div>
+</div>
+
+<h2 class="rv">هل أتقنت المثال؟</h2>
+<p class="hint rv"><span class="ex">؛ الأسئلة من إعدادي، وليست من الكتاب.</span></p>
+<section class="glass quiz rv"><div class="meter"><i id="m"></i></div><div id="qz"></div></section>
+
+<section class="glass sum rv">
+<p><b>الخلاصة</b></p>
+<p>وكلمة (المُجْتَهِدينَ) في المثال الخامس جاءت منصوبةً؛ لأنها عُطفت على الاسم المنصوب (المُهْمِلينَ) قبلها بحرف العطف (بل) الواقع بعد نهي، الذي يفيدُ معنى <b>الإضراب</b>.</p>
+</section>
+<footer><b>إعداد: أنس نهاد محمود الجعل</b>بإشراف: أ. حُسُن خليل أحمد شلش</footer>
+</main>
+<script>
+var K=["a","b","c","d"],COL={a:"var(--c1)",b:"var(--c2)",c:"var(--c3)",d:"var(--c4)"};
+var D={a:["أسلوب نهي","حرف العطف (بل) الواقع بعد نهي<span class='ex'>؛ والنهي هنا (لا تُصاحِبِ): لا الناهية + فعل مضارع مجزوم، غرضه النصح.</span>"],
+b:["المعطوف عليه","عُطفت (المُجْتَهِدينَ) على الاسم المنصوب (المُهْمِلينَ) قبلها<span class='ex'>؛ (المُهْمِلينَ) هو المعطوف عليه، مفعول به منصوب وعلامة نصبه الياء لأنه جمع مذكر سالم.</span>"],
+c:["حرف العطف (بَلْ)","الواقع بعد نهي، الذي يفيدُ معنى الإضراب<span class='ex'>؛ يقرّر حكم ما قبله (النهي عن مصاحبة المهملين) ويثبت نقيضه لما بعده (الأمر بمصاحبة المجتهدين).</span>"],
+d:["المعطوف","(المُجْتَهِدينَ) جاءت منصوبةً؛ لأنها عُطفت على الاسم المنصوب (المُهْمِلينَ) قبلها<span class='ex'>؛ وهي المعطوف، وتتبع المعطوف عليه في إعرابه (النصب)، وعلامة نصبها الياء لأنها جمع مذكر سالم، وتختلف عنه في الحكم بسبب معنى (بل).</span>"]};
+var box=document.getElementById("d"),cur=0,timer=null;
+function show(i){cur=(i+4)%4;var k=K[cur],v=D[k];box.style.setProperty("--dc",COL[k]);box.innerHTML="<h3>"+v[0]+"</h3><div class='ans'>"+v[1]+"</div><small class='tap'>اضغط لإظهار الإجابة</small>"}
+document.querySelectorAll(".w").forEach(function(w){w.addEventListener("mouseenter",function(){stop();show(K.indexOf(w.dataset.k))});w.addEventListener("click",function(){show(K.indexOf(w.dataset.k))})});
+function stop(){}
+show(0);box.addEventListener("click",function(){var a=box.querySelector(".ans");if(a)a.classList.add("open")});
+/* glass glow + reveal + progress */
+document.querySelectorAll(".glass").forEach(function(g){g.addEventListener("pointermove",function(e){var r=g.getBoundingClientRect();g.style.setProperty("--mx",(e.clientX-r.left)+"px");g.style.setProperty("--my",(e.clientY-r.top)+"px")})});
+var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add("in");io.unobserve(e.target)}})},{threshold:.12});
+document.querySelectorAll(".rv").forEach(function(el,i){el.style.transitionDelay=(i%3)*80+"ms";io.observe(el)});
+var bar=document.getElementById("bar");
+addEventListener("scroll",function(){var h=document.documentElement;bar.style.width=(h.scrollTop/(h.scrollHeight-h.clientHeight)*100)+"%"});
+/* fullscreen: F or ب */
+addEventListener("keydown",function(e){if(e.ctrlKey||e.metaKey||e.altKey)return;var k=(e.key||"").toLowerCase();if(e.code==="KeyF"||k==="f"||k==="ب"){e.preventDefault();try{if(document.fullscreenElement)document.exitFullscreen();else document.documentElement.requestFullscreen()}catch(x){}}});
+/* sync, keyboard, font size */
+(function(){
+var W=document.querySelectorAll(".w"),_s=show;
+show=function(i){_s(i);W.forEach(function(w){w.classList.toggle("on",w.dataset.k===K[cur])})};show(cur);
+var fl=box,help=document.getElementById("help");
+function vis(){var b=fl.getBoundingClientRect();return b.top>0&&b.bottom<innerHeight}
+function go(i){show(i);if(!vis())fl.scrollIntoView({block:"center",behavior:"smooth"})}
+document.addEventListener("fullscreenchange",function(){document.documentElement.classList.toggle("fs",!!document.fullscreenElement)});
+document.getElementById("hp").onclick=function(){help.hidden=!help.hidden};
+addEventListener("keydown",function(e){
+if(e.ctrlKey||e.metaKey||e.altKey)return;var t=e.target.tagName;if(t==="BUTTON"||t==="INPUT")return;
+var k=e.key,a=document.querySelector(".ans");
+if(k==="ArrowLeft"){e.preventDefault();go(cur+1)}
+else if(k==="ArrowRight"){e.preventDefault();go(cur-1)}
+else if(k===" "){e.preventDefault();if(a&&!a.classList.contains("open")){a.classList.add("open");if(!vis())fl.scrollIntoView({block:"center",behavior:"smooth"})}else go(cur+1)}
+else if(k>="1"&&k<="4"){go(+k-1)}
+else if(k==="?"||k==="؟"){help.hidden=!help.hidden}
+});
+})();
+/* custom scrollbar */
+(function(){var sb=document.getElementById("sb"),t=document.getElementById("sbt"),r=document.documentElement,drag=null;
+function M(){var h=r.scrollHeight,c=r.clientHeight,tr=sb.clientHeight,th=Math.max(44,c/h*tr);return{h:h,c:c,th:th,mx:tr-th}}
+function upd(){var m=M();if(m.h<=m.c+1){sb.style.display="none";return}sb.style.display="block";t.style.height=m.th+"px";t.style.transform="translateY("+(r.scrollTop/(m.h-m.c)*m.mx)+"px)"}
+addEventListener("scroll",upd);addEventListener("resize",upd);document.addEventListener("fullscreenchange",function(){setTimeout(upd,120)});
+if(window.ResizeObserver)new ResizeObserver(upd).observe(document.body);upd();
+t.addEventListener("pointerdown",function(e){e.preventDefault();e.stopPropagation();drag={y:e.clientY,s:r.scrollTop};sb.classList.add("drag");t.setPointerCapture(e.pointerId)});
+t.addEventListener("pointermove",function(e){if(!drag)return;var m=M();scrollTo({top:drag.s+(e.clientY-drag.y)/m.mx*(m.h-m.c),behavior:"instant"})});
+function end(){drag=null;sb.classList.remove("drag")}
+t.addEventListener("pointerup",end);t.addEventListener("pointercancel",end);
+sb.addEventListener("pointerdown",function(e){if(e.target!==sb)return;var m=M(),b=sb.getBoundingClientRect(),p=(e.clientY-b.top-m.th/2)/m.mx;scrollTo({top:Math.max(0,Math.min(1,p))*(m.h-m.c),behavior:"smooth"})});
+window.addEventListener("load",upd)})();
+/* theme */
+var root=document.documentElement,tb=document.getElementById("theme");
+function dark(){return root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme:dark)").matches}
+function icon(){var a='<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">';tb.innerHTML=dark()?a+'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/></svg>':a+'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg>'}
+tb.onclick=function(){root.dataset.theme=dark()?"light":"dark";icon()};icon();
+/* quiz */
+var Q=[["ما نوع (بَلِ) في «لا تُصاحِبِ المُهْمِلينَ، بَلِ المُجْتَهِدينَ»؟",["حرف عطف","حرف جر","حرف نهي"],0,"(بل) من أحرف العطف (الواو، الفاء، ثم، لا، بل، أم، أو)، وقد توسّطت بين (المُهْمِلينَ) و(المُجْتَهِدينَ)."],
+["ما المعنى الذي يفيده حرف العطف (بل) في «لا تُصاحِبِ المُهْمِلينَ، بَلِ المُجْتَهِدينَ»؟",["الجمع","الإضراب","التخيير"],1,"(بل) وقعت بعد نهي (لا تُصاحِبِ)، وهي في الكتاب للإضراب."],
+["ما علامة نصب (المُجْتَهِدينَ)؟",["الفتحة","الألف","الياء"],2,"(المُجْتَهِدينَ) جمع مذكر سالم منصوب، فتكون علامة نصبه الياء بدل الفتحة."],
+["لماذا كُسرت لام (بَلِ)؟",["لأنها مجرورة","للتخلص من التقاء الساكنين","لأنها فعل مجزوم"],1,"آخرها ساكن وبعدها لام التعريف الساكنة، فكُسرت للتخلص من التقاء الساكنين."]];
+var qi=0,sc=0,qz=document.getElementById("qz"),m=document.getElementById("m");
+function ask(){m.style.width=(qi/Q.length*100)+"%";if(qi>=Q.length){var g=sc===Q.length;qz.innerHTML="<div class='q'>"+(g?"ممتاز!":"نتيجتك")+" "+sc+" من "+Q.length+"</div><button class='btn' id='again'>إعادة الاختبار</button>";document.getElementById("again").onclick=function(){qi=0;sc=0;ask()};return}
+var q=Q[qi];qz.innerHTML="<p class='q'>"+(qi+1)+". "+q[0]+"</p><div class='opts'></div><div class='fb'></div>";
+var o=qz.querySelector(".opts");q[1].forEach(function(t,j){var b=document.createElement("button");b.className="opt";b.textContent=t;b.onclick=function(){
+o.querySelectorAll(".opt").forEach(function(x,n){x.disabled=true;if(n===q[2])x.classList.add("ok")});
+var fb=qz.querySelector(".fb");
+if(j===q[2]){sc++;fb.textContent="إجابة صحيحة، لأن "+q[3]}else{b.classList.add("no");fb.textContent="إجابة خاطئة، والصواب: "+q[1][q[2]]+"، لأن "+q[3]}
+var nb=document.createElement("button");nb.className="btn";nb.style.marginTop="12px";nb.textContent=qi+1>=Q.length?"عرض النتيجة":"السؤال التالي";nb.onclick=function(){qi++;ask()};qz.appendChild(nb)};o.appendChild(b)})}
+ask();
+</script>
+</body>
+</html>
